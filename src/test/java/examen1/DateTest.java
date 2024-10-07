@@ -18,13 +18,19 @@ public class DateTest {
     public void verifyDateIsInvalid(){
         DateUtils date = new DateUtils();
         String expectedResult = "INVALID";
-        Assertions.assertEquals(expectedResult, date.getDayOfWeek("2024-02-30"));
+        Assertions.assertEquals(expectedResult, date.getDayOfWeek("2024-02-30"), "ERROR: the date does not exists");
     }
 
     @Test
     public void verifyInvalidFormatOfDate(){
         DateUtils date = new DateUtils();
-        String expectedResult = "MONDAY";
-        Assertions.assertEquals(expectedResult, date.getDayOfWeek("07-10-2024"), "Invalid date format. Expected format: yyyy-MM-dd");
+        Assertions.assertThrows(Exception.class, () -> {date.getDayOfWeek("07-10-2024");});
     }
+
+    @Test
+    public void verifySeparatorsFormat(){
+        DateUtils date = new DateUtils();
+        Assertions.assertThrows(Exception.class, () -> {date.getDayOfWeek("2024/10/07");});
+    }
+
 }
